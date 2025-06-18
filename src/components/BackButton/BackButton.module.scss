@@ -1,0 +1,18 @@
+.base {
+	height: 92px;
+	width: 182px;
+	border: none;
+	border-radius: 11px;
+
+	// background-color: #857e7e;
+	// opacity: 0.1;
+	background: transparent;
+	
+	cursor:  pointer;
+	transition: background-color 0.3s ease; // Плавное изменение яркости
+
+
+	&:active {
+		background-color: rgba(4, 4, 4, 0.25); // Затемнение при нажатии 
+	 }
+}
