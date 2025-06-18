@@ -17,45 +17,45 @@ import ConnectMenu from './pages/Connect/ConnectMenu/ConnectMenu';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Main />,
-    },
-    {
-        path: '/home',
-        element: <Home />,
-    },
-    {
-        path: '/radio_menu',
-        element: <RadioMenu />,
-    },
-    {
-        path: '/connect_menu',
-        element: <ConnectMenu />,
-    },
-    {
-        path: '/radio_arctic',
-        element: <RadioArctic />,
-    },
-    {
-        path: '/connect_arctic',
-        element: <ConnectArctic />,
-    },
-    {
-        path: '/radio_pilot',
-        element: <RadioPilot />,
-    },
-    {
-        path: '/connect_pilot',
-        element: <ConnectPilot />,
-    },
-    {
-        path: '/radio_polar',
-        element: <RadioPolar />,
-    },
-    {
-        path: '/connect_polar',
-        element: <ConnectPolar />,
-    },
+  {
+    path: '/',
+    element: <Main />,
+  },
+  {
+    path: '/home',
+    element: <Home />,
+  },
+  {
+    path: '/radio_menu',
+    element: <RadioMenu />,
+  },
+  {
+    path: '/connect_menu',
+    element: <ConnectMenu />,
+  },
+  {
+    path: '/radio_arctic',
+    element: <RadioArctic />,
+  },
+  {
+    path: '/connect_arctic',
+    element: <ConnectArctic />,
+  },
+  {
+    path: '/radio_pilot',
+    element: <RadioPilot />,
+  },
+  {
+    path: '/connect_pilot',
+    element: <ConnectPilot />,
+  },
+  {
+    path: '/radio_polar',
+    element: <RadioPolar />,
+  },
+  {
+    path: '/connect_polar',
+    element: <ConnectPolar />,
+  },
 ]);
 root.render(<RouterProvider router={router} />);
