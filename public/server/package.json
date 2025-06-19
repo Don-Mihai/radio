@@ -1,0 +1,14 @@
+{
+  "name": "serial-server",
+  "version": "1.0.0",
+  "description": "Express server for sending commands to COM-port via serialport",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "express": "^4.18.2",
+    "serialport": "^11.0.1"
+  }
+}
