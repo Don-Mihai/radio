@@ -15,7 +15,7 @@ app.use(express.json());
 
 // Настройки последовательного порта
 const portPath = 'COM3';
-const baudRate = 115200;
+const baudRate = 9600;
 
 const serialPort = new SerialPort({
   path: portPath,
@@ -38,11 +38,11 @@ serialPort.on('data', (rawBuffer) => {
   const msg = rawBuffer.toString('utf8').trim(); // убираем \r\n и лишние пробелы
   console.log('Received from serial:', msg);
 
-  if (msg === 'Press') {
+  if (String(msg) === '1') {
     // Рассылаем всем клиентам событие button-press
     io.emit('button-press');
     console.log('→ Emitted socket event: button-press');
-  } else if (msg === 'Release') {
+  } else if (String(msg) === '0') {
     // Рассылаем всем клиентам событие button-release
     io.emit('button-release');
     console.log('→ Emitted socket event: button-release');
@@ -50,7 +50,7 @@ serialPort.on('data', (rawBuffer) => {
 });
 
 // Раздача статических файлов фронтенда
-const buildPath = path.join(__dirname, '..', 'build');
+const buildPath = path.join(__dirname, '..');
 app.use(express.static(buildPath));
 app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));

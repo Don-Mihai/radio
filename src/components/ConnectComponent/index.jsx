@@ -10,6 +10,7 @@ function ConnectComponent({ data = {} }) {
 
   // Функция обработки события (листаем тексты)
   const advanceText = () => {
+    console.log('Advance text');
     setCurrentIndex((prev) => Math.min(prev + 1, (data.texts?.length || 1) - 1));
   };
 
@@ -36,7 +37,7 @@ function ConnectComponent({ data = {} }) {
 
   return (
     <div className={styles.wrapper}>
-      {showDescription && <div className={styles.description}>НАЖМИТЕ НА ТЕЛЕГРАФНЫЙ КЛЮЧ, ЧТОБЫ ПРИНЯТЬ ОТВЕТ НА СООБЩЕНИЕ</div>}
+      {showDescription && <div className={styles.description}>ВОЗЬМИТЕ НАУШНИК И НАЖМИТЕ НА ТЕЛЕГРАФНЫЙ КЛЮЧ, ЧТОБЫ ОТПРАВИТЬ СООБЩЕНИЕ</div>}
 
       <div className={styles.textContainer}>{showText && <div className={styles.text}>{data.texts[currentIndex]}</div>}</div>
 

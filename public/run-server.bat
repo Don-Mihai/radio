@@ -53,7 +53,7 @@ start "" "%CHROME_PATH%" ^
   --app="http://localhost:3002/" ^
   --start-fullscreen ^
   --kiosk ^
-  --new-window
+@REM   --new-window
 
 if errorlevel 1 (
     echo [Ошибка] Не удалось запустить Chrome.
