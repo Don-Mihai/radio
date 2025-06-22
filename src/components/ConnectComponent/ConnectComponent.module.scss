@@ -25,6 +25,7 @@ $textContainerWidth: 1434px;
   top: 40%;
   width: 100%;
   text-align: center;
+  font-weight: bold;
 }
 
 .textContainer {
@@ -35,6 +36,16 @@ $textContainerWidth: 1434px;
   width: $textContainerWidth;
   height: 347px;
   overflow-y: auto;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 2px;
+  margin-top: 10px;
+}
+
+.text {
+  margin-bottom: 5px;
 }
 
 .button {
