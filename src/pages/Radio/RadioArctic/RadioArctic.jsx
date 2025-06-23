@@ -23,7 +23,7 @@ function RadioArctic() {
       audioRef.current.currentTime = 0;
     } else {
       // Создаем новый экземпляр Audio
-      audioRef.current = new Audio('/audio/audio-arctic.mp3');
+      audioRef.current = new Audio('/audio/audio-arctic.wav');
     }
 
     // Пробуем воспроизвести
