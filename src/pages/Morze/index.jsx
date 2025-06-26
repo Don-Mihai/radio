@@ -32,14 +32,14 @@ const MORSE_MAP = {
   '----': 'Ш',
   '--.-': 'Щ',
   '--.--': 'Ъ',
-  '-..-': 'Ы',
-  '-.--': 'Ь',
-  '.-.-': 'Э',
+  '-.--': 'Ы',
+  '-..-': 'Ь',
+  '...-...': 'Э',
   '..-..': 'Ю',
-  '.-.-.': 'Я',
+  '.-.-': 'Я',
 };
 
-const morzeWords = [{ text: 'ПРИЕМ' }, { text: 'ЗЕМЛЯ' }, { text: 'ЗАЖАТ ЛЬДАММИ' }, { text: 'ПОГОДА ОТЛИЧНАЯ' }, { text: 'СЛЫШУ ХОРОШО' }];
+const morzeWords = [{ text: 'ПРИЕМ' }, { text: 'ЗЕМЛЯ' }, { text: 'ЗАЖАТ ЛЬДАМИ' }, { text: 'ПОГОДА ОТЛИЧНАЯ' }, { text: 'СЛЫШУ ХОРОШО' }];
 
 const Morze = () => {
   const navigate = useNavigate();
@@ -83,14 +83,18 @@ const Morze = () => {
       const decoded = MORSE_MAP[code] || '?';
       setLetters((prev) => {
         const nextIndex = prev.length;
-        let updated = [...prev, decoded];
+        let updated = [...prev];
         if (selectedIndex !== null) {
           const target = morzeWords[selectedIndex].text;
           // if the next target char is a space, auto-insert it
           if (target[nextIndex] === ' ' && decoded !== ' ') {
+            console.log('auto-inserting space', target[nextIndex], nextIndex, decoded);
             updated.push(' ');
           }
         }
+
+        updated.push(decoded);
+
         checkSuccess(updated);
         return updated;
       });
@@ -147,10 +151,10 @@ const Morze = () => {
       </div>
 
       {/* Test buttons */}
-      {/* <div className={styles.testButtons}>
+      <div className={styles.testButtons}>
         <button onClick={sendShort}>Test Short</button>
         <button onClick={sendLong}>Test Long</button>
-      </div> */}
+      </div>
 
       <div className={styles.textContainer}>
         <div className={styles.symbols}>
