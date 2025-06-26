@@ -1,11 +1,20 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
- 
-	&::-webkit-scrollbar {
-	  width: 0; /* Ширина скроллбара */
-	  height: 0; /* Высота скроллбара */
-	  background: transparent; /* Прозрачный фон */
-	}
- }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 0; /* Ширина скроллбара */
+    height: 0; /* Высота скроллбара */
+    background: transparent; /* Прозрачный фон */
+  }
+}
+
+@font-face {
+  font-family: 'Storm';
+  src: url('./assets/Snowstorm.otf');
+}
+
+body {
+  font-family: 'Storm', sans-serif;
+}

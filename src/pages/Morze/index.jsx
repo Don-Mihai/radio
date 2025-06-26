@@ -44,15 +44,12 @@ const morzeWords = [{ text: 'ПРИЕМ' }, { text: 'ЗЕМЛЯ' }, { text: 'З�
 const Morze = () => {
   const navigate = useNavigate();
 
-  // индекс выбранного слова или null
   const [selectedIndex, setSelectedIndex] = useState(null);
-
-  // текущий код буквы (строим в реальном времени)
   const [currentSymbols, setCurrentSymbols] = useState([]);
-  // массив завершенных кодов букв
   const [completedCodes, setCompletedCodes] = useState([]);
-  // распознанные буквы
   const [letters, setLetters] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const letterTimeout = useRef(null);
   const symbolsRef = useRef(currentSymbols);
@@ -61,28 +58,47 @@ const Morze = () => {
     symbolsRef.current = currentSymbols;
   }, [currentSymbols]);
 
-  // выбираем слово и сбрасываем ввод
   const handleChooseWord = (index) => {
     setSelectedIndex(index);
     setCurrentSymbols([]);
     setCompletedCodes([]);
     setLetters([]);
+    setIsSuccessModalOpen(false);
+  };
+
+  const checkSuccess = (newLetters) => {
+    if (selectedIndex === null) return;
+    const target = morzeWords[selectedIndex].text;
+    const current = newLetters.join('');
+    if (current === target) {
+      setIsSuccessModalOpen(true);
+    }
   };
 
   const pushSymbol = (dotOrDash) => {
     if (letterTimeout.current) clearTimeout(letterTimeout.current);
     setCurrentSymbols((prev) => [...prev, dotOrDash]);
-    // если пауза — считаем, что буква закончилась
     letterTimeout.current = setTimeout(() => {
       const code = symbolsRef.current.join('');
       const decoded = MORSE_MAP[code] || '?';
-      setLetters((prev) => [...prev, decoded]);
+      setLetters((prev) => {
+        const nextIndex = prev.length;
+        let updated = [...prev, decoded];
+        if (selectedIndex !== null) {
+          const target = morzeWords[selectedIndex].text;
+          // if the next target char is a space, auto-insert it
+          if (target[nextIndex] === ' ' && decoded !== ' ') {
+            updated.push(' ');
+          }
+        }
+        checkSuccess(updated);
+        return updated;
+      });
       setCompletedCodes((prev) => [...prev, code]);
       setCurrentSymbols([]);
     }, 2000);
   };
 
-  // подключаемся к сокету при выборе слова
   useEffect(() => {
     if (selectedIndex === null) return;
 
@@ -99,29 +115,26 @@ const Morze = () => {
 
   const handleClickBack = () => navigate(-1);
 
-  // удаляем последний символ или букву
   const handleDeleteSymbol = () => {
-    // если есть текущие символы — удаляем последний ввод
     if (currentSymbols.length > 0) {
       setCurrentSymbols((s) => s.slice(0, -1));
       clearTimeout(letterTimeout.current);
     } else {
-      // иначе убираем последнюю букву и код
       setLetters((l) => l.slice(0, -1));
       setCompletedCodes((c) => c.slice(0, -1));
     }
   };
 
-  // сброс всего ввода
   const handleReset = () => {
     setCurrentSymbols([]);
     setCompletedCodes([]);
     setLetters([]);
+    setIsSuccessModalOpen(false);
   };
 
-  // тестовые кнопки для отправки событий
   const sendShort = () => pushSymbol('.');
   const sendLong = () => pushSymbol('-');
+  const handleToggleModal = () => setIsModalOpen((prev) => !prev);
 
   return (
     <div className={styles.wrapper}>
@@ -133,7 +146,7 @@ const Morze = () => {
         ))}
       </div>
 
-      {/* Тестовые кнопки */}
+      {/* Test buttons */}
       <div className={styles.testButtons}>
         <button onClick={sendShort}>Test Short</button>
         <button onClick={sendLong}>Test Long</button>
@@ -141,7 +154,6 @@ const Morze = () => {
 
       <div className={styles.textContainer}>
         <div className={styles.symbols}>
-          {/* рисуем все завершенные коды */}
           {completedCodes.map((code, i) => (
             <span key={i} className={styles.codeGroup}>
               {code.split('').map((s, j) => (
@@ -150,7 +162,6 @@ const Morze = () => {
               <span className={styles.sep}> </span>
             </span>
           ))}
-          {/* текущий набор символов */}
           {currentSymbols.map((s, i) => (
             <span key={`curr-${i}`}>{s === '.' ? '·' : '–'}</span>
           ))}
@@ -163,7 +174,26 @@ const Morze = () => {
         <div className={styles.optionsButton} onClick={handleReset} />
       </div>
 
-      <div className={styles.backButton} onClick={handleClickBack} />
+      <div className={styles.actionsContainer}>
+        <div className={styles.actionButton} onClick={handleClickBack} />
+        <div className={styles.actionButton} onClick={handleToggleModal} />
+      </div>
+
+      {/* Standard Modal */}
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent} onClick={handleToggleModal} />
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {isSuccessModalOpen && (
+        <div className={styles.modalOverlay} onClick={() => setIsSuccessModalOpen(false)}>
+          <div className={styles.successModalContent}>
+            <h2>ВЕРНО!</h2>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
