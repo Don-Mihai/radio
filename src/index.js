@@ -12,6 +12,7 @@ import RadioPolar from './pages/Radio/RadioPolar/RadioPolar';
 import ConectItem from './pages/ConectItem';
 import RadioMenu from './pages/Radio/RadioMenu/RadioMenu';
 import ConnectMenu from './pages/ConnectMenu/ConnectMenu';
+import Morze from './pages/Morze';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/connect_menu',
     element: <ConnectMenu />,
+  },
+  {
+    path: '/morze_menu',
+    element: <Morze />,
   },
   {
     path: '/radio_arctic',

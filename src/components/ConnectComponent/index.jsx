@@ -24,11 +24,21 @@ function ConnectComponent({ data = {} }) {
   useEffect(() => {
     const socket = io();
 
-    socket.on('button-press', advanceText);
+    socket.on('button-long', advanceText);
+    socket.on('button-short', advanceText);
 
     return () => {
-      socket.off('button-press', advanceText);
+      socket.off('button-long', advanceText);
+      socket.off('button-short', advanceText);
       socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      // Останавливаем и сбрасываем аудио при unmount
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     };
   }, []);
 
@@ -96,7 +106,7 @@ function ConnectComponent({ data = {} }) {
           </div>
         ))}
       </div>
-      <button onClick={advanceText}>click</button>
+      {/* <button onClick={advanceText}>click</button> */}
       <Button className={styles.button} onClick={handleClickBack}>
         Назад
       </Button>

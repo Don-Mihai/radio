@@ -1,0 +1,77 @@
+$textContainerWidth: 901px;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/assets/morze-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.content {
+  width: 100%;
+  height: 104px;
+  margin-top: 913px;
+  padding-left: 835px;
+}
+
+.textContainer {
+  position: absolute;
+  bottom: 212px;
+  left: 50%;
+  transform: translateX($textContainerWidth / -2);
+  width: $textContainerWidth;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow-y: auto;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.optionsContainer {
+  position: absolute;
+  bottom: 212px; // совпадает с textContainer
+  // ставим начало контейнера в точке 50% + половина ширины textContainer + 50px отступа
+  left: calc(50% + #{$textContainerWidth} / 2 + 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+  width: 250px;
+}
+
+.optionsButton {
+  height: 100%;
+}
+
+.words {
+  display: flex;
+  gap: 100px;
+}
+
+.word {
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.selectedWord {
+  cursor: pointer;
+  padding: 4px 8px;
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+
+.backButton {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  height: 100px;
+  width: 183px;
+}

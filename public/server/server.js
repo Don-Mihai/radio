@@ -40,11 +40,11 @@ serialPort.on('data', (rawBuffer) => {
 
   if (String(msg) === '1') {
     // Рассылаем всем клиентам событие button-press
-    io.emit('button-press');
+    io.emit('button-long');
     console.log('→ Emitted socket event: button-press');
   } else if (String(msg) === '0') {
     // Рассылаем всем клиентам событие button-release
-    io.emit('button-release');
+    io.emit('button-short');
     console.log('→ Emitted socket event: button-release');
   }
 });
