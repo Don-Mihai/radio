@@ -151,10 +151,10 @@ const Morze = () => {
       </div>
 
       {/* Test buttons */}
-      <div className={styles.testButtons}>
+      {/* <div className={styles.testButtons}>
         <button onClick={sendShort}>Test Short</button>
         <button onClick={sendLong}>Test Long</button>
-      </div>
+      </div> */}
 
       <div className={styles.textContainer}>
         <div className={styles.symbols}>
